@@ -37,6 +37,7 @@
     "chart.piecelabel.js": "~0.15.0",
     "core-js": "^2.5.4",
     "crypto-js": "^4.0.0",
+    "electron-builder": "^22.11.1",
     "electron-updater": "^4.3.8",
     "file-system": "^2.2.2",
     "fs-extra": "^9.1.0",

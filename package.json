@@ -1,7 +1,11 @@
 {
   "name": "fury",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anchal0027/angular-electron-app.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -90,9 +94,6 @@
     "path": false,
     "os": false,
     "child_process": false
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/anchal0027/angular-electron-app.git"
   }
+  
 }

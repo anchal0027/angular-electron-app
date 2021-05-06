@@ -1,6 +1,6 @@
 {
   "name": "fury",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "main.js",
   "scripts": {
     "ng": "ng",
@@ -37,7 +37,6 @@
     "chart.piecelabel.js": "~0.15.0",
     "core-js": "^2.5.4",
     "crypto-js": "^4.0.0",
-    "electron-updater": "^4.3.8",
     "file-system": "^2.2.2",
     "fs-extra": "^9.1.0",
     "highlight.js": "~10.3.2",
@@ -71,6 +70,8 @@
     "@types/node": "~13.9.4",
     "codelyzer": "^6.0.0",
     "electron": "^12.0.4",
+    "electron-builder": "^22.11.1",
+    "electron-updater": "^4.3.8",
     "electron-wix-msi": "^3.2.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",

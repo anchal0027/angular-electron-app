@@ -91,7 +91,7 @@
     "child_process": false
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/anchal0027/angular-electron-app.git"
+    "type": "git",
+    "url": "https://github.com/anchal0027/angular-electron-app.git"
   }
 }

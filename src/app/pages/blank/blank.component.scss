@@ -1,0 +1,13 @@
+.withBtn{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnBlock{
+    button{
+        margin-right: 25px;
+        &:last-child{
+            margin: 0;
+        }
+    }
+}

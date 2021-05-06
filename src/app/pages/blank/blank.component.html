@@ -1,0 +1,24 @@
+<div class="withBtn">
+    <fury-breadcrumbs current="Dashboard"></fury-breadcrumbs>
+
+
+    <!-- *ngIf = "
+           (db.showTableToggle == 'SHOW' ||
+           db.showLineToggle == 'SHOW' ||
+           db.showSingleValueToggle == 'SHOW' )||(
+          db.showTableToggle == null ||
+           db.showLineToggle == null ||
+           db.showSingleValueToggle == null
+           ) 
+           "
+            -->
+
+            <div class="btnBlock" fxlayout="row"
+    
+*ngIf= "showTableChart || showSingleChart || showLineChart "
+   
+    >
+        <button mat-raised-button color="primary" (click) = "navigateToGraph()">Add Visuals</button>
+        <button mat-raised-button color="primary" (click)="ClearVisual()">Clear Dashboard</button>
+    </div>
+</div>

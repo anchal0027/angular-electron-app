@@ -1,0 +1,483 @@
+<!-- dashboard empty screen end -->
+
+<!-- add-data screen start -->
+<div class="addData" fxLayout="column" fxLayout.gt-sm="row">
+    <fury-page [fxLayoutGap]="gap" fxFlex="auto" [fxFlex.gt-sm]="col(1.5)" class="dashboard" fxLayout="column">
+        <div class="fury-default visual">
+            <div class="fury-preview-card">
+                <div class="preview">
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true" [expanded]="true"  >
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <div class="title">
+                                        <h4>Visuals</h4>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="filter-accordian-detail" fxLayout="column" fxLayout.gt-sm="row" [fxLayoutGap]="gap">
+                                <div class="filterIcons" [fxFlex.gt-sm]="col(6)">
+                                    <div class="filterIcons__title">
+                                        <h5>Select Visuals</h5>
+                                    </div>
+
+
+                                    <a class="filterIcons__item "
+                                        [ngClass]=" selectedTableContent == 1 ?  'active' : '' "
+                                        (click)="getIconsValues(1)">
+                                        <i class="filterIcons__item--icon icon_1"></i>
+                                    </a>
+                                    <a class="filterIcons__item"
+                                        [ngClass]=" selectedTableContent == 2 ?  'active' : '' "
+                                        (click)="getIconsValues(2)">
+                                        <i class="filterIcons__item--icon icon_7"></i>
+                                    </a>
+                                    <a class="filterIcons__item"
+                                        [ngClass]=" selectedTableContent == 3 ?  'active' : '' "
+                                        (click)="getIconsValues(3)">
+                                        <i class="filterIcons__item--icon icon_10"></i>
+                                    </a>
+                                </div>
+                                <!-- Only For Line Chart -->
+                                <div class="filterBlock" [fxFlex.gt-sm]="col(2)" *ngIf="selectedTableContent == 1">
+                                   <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+                                    <mat-tab-group>
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">assignmentx </mat-icon>
+                                            </ng-template>
+
+                                            <div class="clearfix" fxLayout="column">
+                                                <div class="title">
+                                                    <h5>Fields</h5>
+                                                </div>
+
+
+                                                <div class="formBlock" fxLayout="column">
+                                                    <div class="clearfix" fxLayout="row" [fxLayoutGap]="gap">
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(2)" >
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Axis</label>
+                                                                <mat-select class="input-element" placeholder="Axis" name="axis" [(ngModel)]="totalVisitsOptions.axis" #axis="ngModel" (ngModelChange) = "XaxisValueData($event)" >
+                                                                    <mat-option *ngFor=" let b of checkedLabels"  value="{{b}}">{{b | titlecase}}</mat-option>
+                                                                </mat-select>
+                                                            </div>
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Value</label>
+                                                                <mat-select class="input-element" placeholder="Total Recived" name="value" [(ngModel)]="totalVisitsOptions.value" #value="ngModel" (ngModelChange) = "YaxisValueData($event)">
+                                                                    <mat-option *ngFor=" let a of checkedLabels"  value="{{a}}">{{a | titlecase}}</mat-option>
+                                                                    <!-- <mat-option value="Total Order">Total Order</mat-option>
+                                                                    <mat-option value="Total Inserted">Total Inserted</mat-option> -->
+                                                                </mat-select>
+                                                            </div>
+                                                        </div>
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(2)">
+                                                            <div fxLayout="column">
+                                                                <div class="form-control" fxLayout="column">
+                                                                    <label class="input-label" for="">Title</label>
+                                                                    <input  class="input-element" placeholder="Title" type="text" name="lineChartTitle" [(ngModel)]="totalVisitsOptions.title" #lineChartTitle="ngModel" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </mat-tab>
+
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">format_paint</mat-icon>
+                                            </ng-template>
+
+                                            <div class="clearfix lineFormating">
+
+
+                                                <div class="formBlock" fxLayout="column">
+                                                    <div class="clearfix" fxLayout="row" [fxLayoutGap]="gap">
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(2)" >
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Background Color</label>
+                                                                <mat-form-field>
+                                                                    <!-- LineBGColor.value?.rgba -->
+                                                                    <input matInput [style.background-color]="totalVisitsOptions.LineBGColor" [ngxMatColorPicker]="LineBGColorPicker" name="LineBGColor" [(ngModel)]="totalVisitsOptions.LineBGColor" #LineBGColor="ngModel" [disabled]="disabled">
+                                                                    <ngx-mat-color-toggle matSuffix [for]="LineBGColorPicker"></ngx-mat-color-toggle>
+                                                                    <ngx-mat-color-picker #LineBGColorPicker [touchUi]="touchUi" [color]="colors"></ngx-mat-color-picker>
+                                                                </mat-form-field>
+                                                               
+                                                            </div>
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Font Size</label>
+                                                                <input  class="input-element" placeholder="Font Size" type="number" min="0"   name="fontsize" [(ngModel)]="totalVisitsOptions.fontsize" #fontsize="ngModel" >
+                                                            
+                                                            </div>
+                                                        </div>
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(2)">
+                                                            <div fxLayout="column">
+                                                                <div class="form-control" fxLayout="column">
+                                                                    <label class="input-label" for="">Foreground Color</label>
+                                                                    <mat-form-field>
+                                                                        <!-- [formControl]="LineFGColor" -->
+                                                                        <input matInput [style.background-color]="totalVisitsOptions.LineFGColor"  [ngxMatColorPicker]="LineFGColorPicker" name="LineFGColor" [(ngModel)]="totalVisitsOptions.LineFGColor" #LineFGColor="ngModel" [disabled]="disabled">
+                                                                        <ngx-mat-color-toggle matSuffix [for]="LineFGColorPicker"></ngx-mat-color-toggle>
+                                                                        <ngx-mat-color-picker #LineFGColorPicker [touchUi]="touchUi" [color]="colors"></ngx-mat-color-picker>
+                                                                    </mat-form-field>
+                                                                    <!-- <label class="input-label" for="">Title</label>
+                                                                    <input  class="input-element" placeholder="Title" type="text" name="lineChartTitle" [(ngModel)]="totalVisitsOptions.title" #lineChartTitle="ngModel" > -->
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Content 2 Of LINECHART -->
+                                        </mat-tab>
+
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">functions</mat-icon>
+                                            </ng-template>
+
+                                            <div class="clearfix" fxLayout="column">
+                                                <div class="formBlock" fxLayout="column">
+                                                    <div class="clearfix" fxLayout="row" [fxLayoutGap]="gap">
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(4)" >
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Function</label>
+                                                                <mat-select class="input-element" placeholder="Average"  name="functionn" [(ngModel)]="totalVisitsOptions.functionn" #functionn="ngModel" (selectionChange)="getfunctionValue()">
+                                                                    <mat-option *ngFor= "let fun of functionsJson" value="{{fun.value}}">{{fun.key}}</mat-option>
+                                                                </mat-select>
+                                                            </div>
+                                                        </div>
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(8)" >&nbsp;</div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Content 4 OF LINECHART -->
+                                        </mat-tab>
+
+                                    </mat-tab-group>
+                                   </form>
+                                </div>
+                                <div class="filterBlock" [fxFlex.gt-sm]="col(2)" *ngIf="selectedTableContent ==  2 ">
+
+                                    <mat-tab-group>
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">assignmentx </mat-icon>
+                                            </ng-template>
+
+                                            <div class="clearfix" fxLayout="column">
+                                                <div class="title">
+                                                    <h5>Fields</h5>
+                                                </div>
+                                                <div class="formBlock" fxLayout="column">
+                                                    <div class="clearfix" fxLayout="row" [fxLayoutGap]="gap">
+                                                        <div fxLayout="column" [fxFlex.gt-sm]="col(4)"
+                                                            [fxLayoutGap]="gap">
+                                                            <div fxLayout="column">
+                                                                <div class="form-control" fxLayout="column">
+                                                                    <label class="input-label" for="">Title</label>
+                                                                    <input class="input-element" placeholder="Heading"
+                                                                        type="text" [(ngModel)]="tableFields.title">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </mat-tab>
+
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">format_paint</mat-icon>
+                                            </ng-template>
+
+
+                                            <div class="clearfix ">
+                                                <div class="clearfix" fxLayout="column">
+                                                    <div class="title">
+                                                        <h5>Formating</h5>
+                                                    </div>
+                                                    <div class="formBlock" fxLayout="column">
+                                                        <div class="clearfix" fxLayout="column">
+                                                            <div  fxLayout="row"  [fxLayoutGap]="gap">
+                                                               
+                                                                <div class="form-control" fxLayout="column" [fxFlex.gt-sm]="col(2)">
+                                                                    <label class="input-label" for="">Background Color</label>
+                                                                    <mat-form-field>
+                                                                        <input matInput [style.background-color]="tableFormating.backgroundColor" [ngxMatColorPicker]="TableBGColorPicker"  [formControl]="TableBGColor" [disabled]="disabled"  type="text" [(ngModel)]="tableFormating.backgroundColor" readonly>
+                                                                        <ngx-mat-color-toggle matSuffix [for]="TableBGColorPicker"></ngx-mat-color-toggle>
+                                                                        <ngx-mat-color-picker #TableBGColorPicker [touchUi]="touchUi" [color]="colors"></ngx-mat-color-picker>
+                                                                    </mat-form-field>
+
+                                                                    <!-- <input type="text" class="input-element" placeholder="#efefef" /> -->
+                                                                </div>
+                                                                <div class="form-control" fxLayout="column" [fxFlex.gt-sm]="col(2)">
+                                                                    <label class="input-label" for="">Foreground Color</label>
+
+                                                                    <mat-form-field>
+                                                                        <input matInput [style.background-color]="tableFormating.foregroundColor" [ngxMatColorPicker]="TableFGColorPicker"  [formControl]="TableFGColor" [disabled]="disabled" [(ngModel)]="tableFormating.foregroundColor" type="text" readonly>
+                                                                        <ngx-mat-color-toggle matSuffix [for]="TableFGColorPicker"></ngx-mat-color-toggle>
+                                                                        <ngx-mat-color-picker #TableFGColorPicker [touchUi]="touchUi" [color]="colors"></ngx-mat-color-picker>
+                                                                    </mat-form-field>
+
+                                                                    <!-- <input type="text" class="input-element" placeholder="#efefef" /> -->
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <div  fxLayout="column" fxLayout.gt-sm="row" [fxLayoutGap]="gap">
+                                                                <div class="form-control" fxLayout="column" [fxFlex.gt-sm]="col(2)">
+                                                                    <label class="input-label" for="">Horizontal Alignment</label>
+                                                                    <mat-select class="input-element" placeholder="Left" [(ngModel)]="tableFormating.horizantalAlign">
+                                                                        <mat-option value="left">Left</mat-option>
+                                                                        <mat-option value="right">Right</mat-option>
+                                                                        <mat-option value="center">Center</mat-option>
+                                                                    </mat-select>
+                                                                </div>
+                                                                <div class="form-control" fxLayout="column"  [fxFlex.gt-sm]="col(2)">
+                                                                    <label class="input-label" for="">Text Size (px)</label>
+                                                                    <input class="input-element" placeholder="12px" min="0" type="number" [(ngModel)]="tableFormating.textSize">
+                                                                </div>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                    </mat-tab-group>
+                                </div>
+
+                                <!-- Ending Only For Table -->
+
+
+                                <!-- Start For Single Value Chart -->
+                                <div class="filterBlock" [fxFlex.gt-sm]="col(2)" *ngIf="selectedTableContent ==  3">
+
+                                    <mat-tab-group>
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">assignmentx </mat-icon>
+                                            </ng-template>
+
+                                            <div class="clearfix">
+
+                                                <div class="formBlock" fxLayout="column" [fxFlex.gt-sm]="col(10)">
+                                                    <div class="clearfix" fxLayout="row" [fxLayoutGap]="gap">
+                                                        <div class="form-control" fxLayout="column" [fxFlex.gt-sm]="col(2)">
+                                                            <label class="input-label" for="">Title</label>
+                                                            <input class="input-element" placeholder="NAB Assets" type="text" [(ngModel)]="singlechartDesciption.title">
+                                                        </div>
+                                                        <div class="form-control" fxLayout="column" [fxFlex.gt-sm]="col(2)">
+                                                            <label class="input-label" for="">Subtitle</label>
+                                                            <input class="input-element" placeholder="Self Service" type="text"  [(ngModel)]="singlechartDesciption.subtitle">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" fxLayout="row" [fxFlex.gt-sm]="col(12)">
+                                                        <div class="form-control" fxLayout="column" [fxFlex.gt-sm]="col(1)">
+                                                            <label class="input-label" for="">Description</label>
+                                                            <textarea name="" placeholder="This is the NAB self service fleet." class="input-element" id="" rows="2"  [(ngModel)]="singlechartDesciption.description"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">format_paint</mat-icon>
+                                            </ng-template>
+                                            <div class="clearfix" fxLayout="column">
+                                                <div class="title">
+                                                    <h5>General</h5>
+                                                </div>
+                                                <div class="formBlock" fxLayout="column">
+                                                    <div class="clearfix" fxLayout="row" [fxLayoutGap]="gap">
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(4)" >
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Background Color</label>
+
+                                                                <mat-form-field>
+                                                                    <input matInput [style.background-color]="singlechartDesciption.bgColor" [ngxMatColorPicker]="SingleBGColorPicker"  [formControl]="SingleBGColor" [disabled]="disabled"  [(ngModel)]="singlechartDesciption.bgColor">
+                                                                    <ngx-mat-color-toggle matSuffix [for]="SingleBGColorPicker"></ngx-mat-color-toggle>
+                                                                    <ngx-mat-color-picker #SingleBGColorPicker [touchUi]="touchUi" [color]="colors"></ngx-mat-color-picker>
+                                                                </mat-form-field>
+
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(4)" >
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Foreground Color</label>
+
+                                                                <mat-form-field>
+                                                                    <input matInput [style.background-color]="singlechartDesciption.fgColor" [ngxMatColorPicker]="SingleFGColorPicker"  [formControl]="SingleFGColor" [disabled]="disabled" [(ngModel)]="singlechartDesciption.fgColor">
+                                                                    <ngx-mat-color-toggle matSuffix [for]="SingleFGColorPicker"></ngx-mat-color-toggle>
+                                                                    <ngx-mat-color-picker #SingleFGColorPicker [touchUi]="touchUi" [color]="colors"></ngx-mat-color-picker>
+                                                                </mat-form-field>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                       
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(4)" >
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Text Size (px)</label>
+                                                                <input class="input-element" placeholder="12" type="number" [min]="0" [(ngModel)]="singlechartDesciption.textSize">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </mat-tab>
+
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">functions</mat-icon>
+                                            </ng-template>
+                                            <div class="clearfix" fxLayout="column">
+                                                <div class="formBlock" fxLayout="column">
+                                                    <div class="clearfix" fxLayout="row" [fxLayoutGap]="gap">
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(4)" >
+                                                            <div class="form-control" fxLayout="column">
+                                                                <label class="input-label" for="">Function</label>
+                                                                <mat-select class="input-element" placeholder="" [(ngModel)]="singlechartDesciption.function" (selectionChange)="onFunctionChange()">
+                                                                    <mat-option value="{{function.value}}" *ngFor="let function of functionsJsonSingleChart">{{function.key}}</mat-option>
+                                                                    <!-- <mat-option value="Maximum">Maximum</mat-option>
+                                                                    <mat-option value="Count">Count</mat-option>
+                                                                    <mat-option value="Count(Unique)">Count(Unique)</mat-option> -->
+                                                                </mat-select>
+                                                            </div>
+                                                        </div>
+                                                        <div  fxLayout="column" [fxFlex.gt-sm]="col(8)" >&nbsp;</div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+
+                                       
+
+                                    </mat-tab-group>
+                                </div>
+
+
+                                <!-- End For Single Value Chartt -->
+
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <!-- selectedTableContent == 3 && -->
+            <section class="startDashboard visualData"  *ngIf= "  ShowMyTextChrtsValue == 0">
+                <div class="startDashboard__content" >
+                    <figure>
+                        <img mat-list-avatar src="assets/img/visual-data.png">
+                    </figure>
+                    <div class="titleBlock">
+                        <h2>Build Visuals With Your Data</h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chart Conditions -->
+            <div class="section white round" *ngIf=  "selectedTableContent == 1 && ShowMyTextChrtsValue == 1 " fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column">
+               
+                <!-- <fury-audience-overview-widget class="route-animations-elements"  
+                                       [optionsValue]="audienceOverviewOptions"></fury-audience-overview-widget> -->
+                                       <!-- [fontValue]="fontValue" -->
+                <fury-line-chart-widget class="widget route-animations-elements" [data]="visitsData$ | async" 
+                    [options]="totalVisitsOptions"></fury-line-chart-widget>
+                <div class="btnBlock textLeft" (click)="SubmitLine()" [fxLayoutGap]="gap" >
+                    <button mat-raised-button color="primary">Submit</button>
+                </div>
+               
+            </div>
+
+            <!-- End Table -->
+
+
+            <!-- && ShowMyTextChrtsValue == 1 -->
+            <div class="section white round" *ngIf="selectedTableContent == 2 && ShowMyTextChrtsValue == 1 " fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column">
+                <fury-all-in-one-table [events]="eventsSubject.asObservable()" [tableOptions]="TableChartSchema" [tableData]="recentSalesTableData$ | async" [showColumnFilter]="showColumnFilter" [tableFields]="tableFields"  [tableFormating]="tableFormating"> 
+                </fury-all-in-one-table>
+                <div class="btnBlock textLeft" (click)="saveTableForDashboard()">
+                    <button mat-raised-button color="primary">Submit</button>
+                </div>
+               
+            </div>
+
+              <!-- Line Chart Start  -->
+            <!-- *ngIf="showGraphs == 3" -->
+            <!-- && ShowMyTextChrtsValue == 1   -->
+            <div class="section white round" *ngIf="selectedTableContent == 3 && ShowMyTextChrtsValue == 1  " fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="row">
+                <fury-quick-info-widget class="route-animations-elements" fxFlex="grow" value="{{numeric}}"
+                label="{{TextValue}}" [singlechartDesciption]="singlechartDesciption" [background]="'#009688'" color="white" icon="people"></fury-quick-info-widget>
+            <br>
+            <div class="btnBlock textLeft" (click)="saveSingleChart()">
+                <button mat-raised-button color="primary">Submit</button>
+            </div>
+            </div>
+
+            <!--END Line Chart Start  -->
+        </div>
+    </fury-page>
+
+    <div class="fury-default" fxFlex="auto" [fxFlex.gt-sm]="col(6.5)">
+        <div class="fury-preview-card">
+            <div class="preview content">
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="title">
+                                    <h4>Tables</h4>
+                                </div>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="filter-accordian-detail">
+                            <div class="searchBlock">
+                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+                                    <mat-icon class="fury-filter-input-icon">search</mat-icon>
+                                    <input fxFlex class="fury-filter-input" placeholder="Search">
+                                </div>
+                            </div>
+                            <div class="checkList">
+                                <div class="checkList__item">
+                                    <mat-checkbox color="primary" (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()" [disabled]="selectedTableContent == 3">Transaction
+                      </mat-checkbox>
+                                    <!-- <mat-checkbox color="primary">Transaction</mat-checkbox> -->
+                                    <div class="subChecklist">
+                                        <div class="checkList__item">
+                                            <mat-checkbox  color="primary" *ngFor=" let a of TableChartSchema" value="{{a.column}}"
+                                                (change)="getLabelnames($event.source.value,$event.checked,a)"  [checked]="selection.isSelected(a)">
+                                                {{a.header|titlecase}}</mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add-data screen  end -->
+

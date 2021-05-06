@@ -1,0 +1,46 @@
+<!-- dashboard empty screen start -->
+<fury-page [fxLayoutGap]="gap" class="dashboard" fxLayout="column">
+    <!-- FIRST ROW -->
+    <fury-blank [showTableChart]="showTableChart" [showSingleChart]="showSingleChart" [showLineChart]="showLineChart" (removeTableCard)="removeTableCard()" (removeSingleValueCard)="removeSingleValueCard()" (removeLineCard) = "RemoveLine()"></fury-blank>
+    <div>
+    <section class="startDashboard" 
+    *ngIf = "!showTableChart && !showSingleChart && !showLineChart"
+    >
+    
+    <div class="startDashboard__content">
+    <figure>
+    <img mat-list-avatar src="assets/img/start-dashboard.png">
+    </figure>
+    <div class="titleBlock">
+    <h2>Start Building Your Dashboard!</h2>
+    </div>
+    <div class="btnBlock" (click) = "goToPreviewpage()">
+    <button mat-raised-button color="primary">Add Visuals</button>
+    </div>
+    </div>
+    
+    </section>
+    </div>
+    
+    <div *ngIf="showTableChart && tableChart.length>0" fxFlex="auto" [fxFlex.gt-sm]="col(4)">
+    <fury-all-in-one-table *ngFor="let chart of tableChart; let i=index" [tableOptions]="chart.columns"
+    [tableData]="chart.tabledata" threeDots="{{showThreeDots}}" [showColumnFilter]="showColumnFilter"
+    [cardDetails]="chart" [totalCharts]="tableChart" (removeTableCard)="removeTableCard()"
+    [tableFields]="chart.tableFields"
+    [tableFormating]="chart.tableFormating"></fury-all-in-one-table>
+    </div>
+    <div fxLayout="row wrap" *ngIf="(showLineChart && jsonLineDataUI.length>0)||(showSingleChart && singlevalueChart.length>0)">
+    <div fxFlex="50"style="margin-bottom:10px;margin-right:10px" [fxFlex.gt-sm]="48" fxFlex="auto" *ngFor="let line of jsonLineDataUI ; let i =index">
+    <fury-line-chart-widget 
+    class="widget route-animations-elements" [data]="line.Value | async" [CompleteData]="JsonLineData"
+    (removeLineCard)="removeLineCard(data)" [options]="line.Options" threeDots="{{showThreeDots}}">
+    </fury-line-chart-widget>
+    
+    </div>
+    <div fxFlex="50" style="margin-bottom:10px;" [fxFlex.gt-sm]="50" fxFlex="auto" *ngFor="let single of singlevalueChart; let i=index">
+    <fury-quick-info-widget [fxLayoutGap]="gap" (removeSingleValueCard)="removeSingleValueCard()" [cardDetails]="single" [totalSingleValueChart]="singlevalueChart" value="{{single.value}}" label="{{single.text}}" [singlechartDesciption]="single.singlechartDecription"
+    [background]="'#009688'" color="white" threeDots = "{{showThreeDots}}"
+    icon="people"></fury-quick-info-widget> 
+    </div>
+    </div>
+   </fury-page>

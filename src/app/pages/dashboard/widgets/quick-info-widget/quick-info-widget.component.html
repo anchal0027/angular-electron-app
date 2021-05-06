@@ -1,0 +1,32 @@
+<div class="quick-info-widget elevation" fxFlex="grow" fxLayout="column"
+[style.background]="singlechartDesciption.bgColor" [style.color]="singlechartDesciption.fgColor" [style.font-size.px]="singlechartDesciption.textSize">
+
+     <div  *ngIf="threeDots" fxLayoutAlign="end">
+      <button (click)="reload()" mat-icon-button>
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button  mat-icon-button  [matMenuTriggerFor] ="menus">
+        <mat-icon >more_vert</mat-icon>
+      </button>
+     </div>
+
+
+
+     <div fxLayout="column">
+      <div class="value" [style.font-size.px]="singlechartDesciption.textSize"><h3>{{ singlechartDesciption.title }}</h3></div>
+      <div class="label" [style.font-size.px]="singlechartDesciption.textSize">{{ singlechartDesciption.subtitle }}</div>
+      <div class="value"  style="text-align: center;"><h1>{{ singlechartDesciption.value }}</h1></div>
+      <!-- <div class="value"  style="text-align: center;">{{ label }}</div> -->
+      <div class="label" [style.font-size.px]="singlechartDesciption.textSize">{{ singlechartDesciption.description}}</div>
+    </div>
+
+
+  <!-- <mat-icon class="icon">{{ icon }}</mat-icon> -->
+</div>
+
+<mat-menu #menus="matMenu"  >
+  <button mat-menu-item (click)="RemoveCardd()" >
+    <mat-icon> remove_circle</mat-icon>
+    <span > Remove Visual </span>
+  </button>
+</mat-menu>

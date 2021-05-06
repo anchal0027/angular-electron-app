@@ -1,0 +1,42 @@
+@import "var";
+
+.page {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.card {
+  width: 380px;
+
+  @include media-xs {
+    width: 300px;
+  }
+
+  .header {
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+}
+
+
+.logo {
+  width: 80px;
+  height: 80px;
+}
+.remember{
+  margin: auto;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+// ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
+//   padding: 20 !important;
+//   border-radius: 0 !important;
+//   align-items: center;
+//   background: #fff;
+//   border: solid 1px #d3d3d3;
+// }
+// ::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix{
+//   border: 0;
+//   padding: 0;
+// }

@@ -1,0 +1,2 @@
+<fury-all-in-one-table *ngIf="isLoaded"  [events]="eventsSubject.asObservable()"  [tableOptions]="TableSchema" [tableData]="tableChart" [showColumnFilter]="showColumnFilter" [tableFields]="tableFields"  [tableFormating]="tableFormating" (refresh)="refresh($evenr)"> 
+</fury-all-in-one-table>

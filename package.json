@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

@@ -9,6 +9,7 @@ const {app, BrowserWindow,ipcMain } = require('electron')
     // var destination = 'folderB'
 
     function createWindow () {
+      console.log(">>>__dirname",__dirname)
       console.log(">>>bae path",app.getAppPath())
       // let data=[{"name":"Mega Corp c drive.","order_count":83,"address":"Infinity Loop Drive"},{"name":"sazal","order_count":31,"address":"noida"}]
       // fs.writeFile('C:\\test.json', JSON.stringify(data) ,function(err) {
@@ -32,6 +33,7 @@ const {app, BrowserWindow,ipcMain } = require('electron')
         webPreferences: {
           nodeIntegration: true,
           contextIsolation: false,
+          // webSecurity: false
         }
       })
 
@@ -64,7 +66,6 @@ const {app, BrowserWindow,ipcMain } = require('electron')
       if (mainWindow === null) createWindow()
     })
     ipcMain.on('app_version', (event) => {
-      console.log(">>>main event",event.sender)
       event.sender.send('app_version_reply', { version: app.getVersion() });
     });
     autoUpdater.on('update-available', () => {

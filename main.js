@@ -1,4 +1,4 @@
-const {app, BrowserWindow,ipcMain } = require('electron')
+const {app, BrowserWindow,ipcMain } = require('electron');
     const url = require("url");
     const path = require("path");
     var fs = require('file-system');
@@ -8,9 +8,10 @@ const {app, BrowserWindow,ipcMain } = require('electron')
     // var source = 'C:\\Users\\Public'
     // var destination = 'folderB'
 
+   
     function createWindow () {
-      console.log(">>>__dirname",__dirname)
-      console.log(">>>bae path",app.getAppPath())
+      console.log(">>>__dirname",__dirname);
+      console.log(">>>bae path",app.getAppPath());
       // let data=[{"name":"Mega Corp c drive.","order_count":83,"address":"Infinity Loop Drive"},{"name":"sazal","order_count":31,"address":"noida"}]
       // fs.writeFile('C:\\test.json', JSON.stringify(data) ,function(err) {
       //   console.log(">>>err",err)
@@ -34,8 +35,9 @@ const {app, BrowserWindow,ipcMain } = require('electron')
           nodeIntegration: true,
           contextIsolation: false,
           //  webSecurity: false
-        }
-      })
+        },
+        show: false
+      });
       // mainWindow.loadFile('./dist/index.html');
       mainWindow.loadURL(
         url.format({
@@ -45,28 +47,34 @@ const {app, BrowserWindow,ipcMain } = require('electron')
         })
       );
       // Open the DevTools.
-       mainWindow.webContents.openDevTools()
+      //  mainWindow.webContents.openDevTools()
 
       mainWindow.on('closed', function () {
         mainWindow = null
-      })
+      });
       mainWindow.once('ready-to-show', () => {
+        console.log(">>Ready")
+        mainWindow.show()
         autoUpdater.checkForUpdatesAndNotify();
-      })
+      });
+      
     }
-
-   
-    app.on('ready', createWindow)
+  
+    app.on('ready', () => {
+      createWindow();
+    });
 
     app.on('window-all-closed', function () {
       if (process.platform !== 'darwin') app.quit()
-    })
+    });
 
-    app.on('activate', function () {
-      if (mainWindow === null) createWindow()
-    })
+    app.on('window-all-closed', function () {
+      if (process.platform !== 'darwin') {
+        app.quit();
+      }
+    });
     ipcMain.on('app_version', (event) => {
-      event.sender.send('app_version_reply', { version: app.getVersion() });
+      event.sender.send('app_version', { version: app.getVersion() });
     });
     autoUpdater.on('update-available', () => {
       console.log(">>>update availabe")
@@ -75,8 +83,9 @@ const {app, BrowserWindow,ipcMain } = require('electron')
     autoUpdater.on('update-downloaded', () => {
       console.log(">>>update downloades")
       mainWindow.webContents.send('update_downloaded');
-      ipcMain.on('restart_app', () => {
-        autoUpdater.quitAndInstall();
-      });
+     
+    });
+    ipcMain.on('restart_app', () => {
+      autoUpdater.quitAndInstall();
     });
     

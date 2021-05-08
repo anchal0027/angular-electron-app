@@ -1,7 +1,7 @@
 {
   "name": "stm",
   "description": "This is electron angular destop app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "main.js",
   "repository": {
     "type": "git",
@@ -9,15 +9,37 @@
   },
   "author": "clavax",
   "license": "ISC",
+  
+  "build": {
+    "appId": "com.example.ElectronAutoUpdate",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "files": [
+      "build/**/*",
+      "dist/**/*",
+      "main.js",
+      "./index.html",
+      "./src/*.js",
+      "public/preload.js"
+    ]
+  },
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
     "start": "ng serve",
-    "build": "electron-builder build  --publish never",
-    "deploy": "electron-builder --publish always",
+    "build": "ng build --prod  --base-href ./ && electron-builder --publish never",
+    "deploy": "ng build --prod  --base-href ./ && electron-builder --publish always",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "electron-builder install-app-deps",
+    
     "electron": "electron .",
     "start:electron": "ng build --base-href ./ && electron ."
   },

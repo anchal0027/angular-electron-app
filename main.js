@@ -33,17 +33,17 @@ const {app, BrowserWindow,ipcMain } = require('electron')
         webPreferences: {
           nodeIntegration: true,
           contextIsolation: false,
-          // webSecurity: false
+          //  webSecurity: false
         }
       })
-
-      mainWindow.loadURL(
-        url.format({
-          pathname: path.join(__dirname, `/dist/index.html`),
-          protocol: "file:",
-          slashes: true
-        })
-      );
+      mainWindow.loadFile('./dist/index.html');
+      // mainWindow.loadURL(
+      //   url.format({
+      //     pathname: path.join(__dirname, './dist/index.html'),
+      //     protocol: "file:",
+      //     slashes: true
+      //   })
+      // );
       // Open the DevTools.
        mainWindow.webContents.openDevTools()
 

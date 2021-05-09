@@ -13,7 +13,7 @@
     <div class="padding" fxLayout="column" fxLayoutGap="16px">
       <div fxFlex="auto" fxLayout="column">
         <mat-form-field fxFlex="grow">
-          <mat-label>E-Mail</mat-label>
+          <mat-label>E-Mail Id</mat-label>
           <input name="username" matInput required formControlName="email" (keyup.enter)="onEnter($event)" autocomplete="new-username">
           <mat-error *ngIf="form.get('email').hasError('required')">We need an email address to log you in</mat-error>
         </mat-form-field>

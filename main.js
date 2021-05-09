@@ -24,6 +24,7 @@ const {app, BrowserWindow,ipcMain } = require('electron');
 
   //    })
   //    fsextra.copy(source, destination, function (err) {
+
   //     if (err){
   //         console.log('An error occured while copying the folder.')
   //         return console.error(err)

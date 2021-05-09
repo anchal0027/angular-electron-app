@@ -10,8 +10,6 @@ const {app, BrowserWindow,ipcMain } = require('electron');
     let mainWindow
     // var source = 'C:\\Users\\Public'
     // var destination = 'folderB'
-
-
    
     function createWindow () {
       console.log(">>>__dirname",__dirname);

@@ -13,7 +13,7 @@ import { SplashScreenService } from '../@fury/services/splash-screen.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  ipcRenderer = (<any>window).require("electron");
+  ipcRenderer = (<any>window).require("electron").ipcRenderer;
   version:any;
   notification:any;
   message:any;

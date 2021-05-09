@@ -270,17 +270,20 @@ export class AppComponent implements OnInit {
     
     this.ipcRenderer.send('app_version');
     this.ipcRenderer.on('app_version', (event, arg) => {
+      console.log(">>app_version",arg)
       this.ipcRenderer.removeAllListeners('app_version');
       this.version.innerText = 'Version ' + arg.version;
     });
 
     this.ipcRenderer.on('update_available', () => {
+      console.log("update is available");
       this.ipcRenderer.removeAllListeners('update_available');
       this.message.innerText = 'A new update is available. Downloading now...';
       this.notification.classList.remove('hidden');
     });
 
     this.ipcRenderer.on('update_downloaded', () => {
+      console.log("update is downloaded");
       this.ipcRenderer.removeAllListeners('update_downloaded');
       this.message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
       this.restartButton.classList.remove('hidden');

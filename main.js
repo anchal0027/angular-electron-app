@@ -74,6 +74,7 @@ const {app, BrowserWindow,ipcMain } = require('electron');
       }
     });
     ipcMain.on('app_version', (event) => {
+      console.log(">>>>app_version main",event)
       event.sender.send('app_version', { version: app.getVersion() });
     });
     autoUpdater.on('update-available', () => {

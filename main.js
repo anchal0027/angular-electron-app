@@ -22,6 +22,8 @@ const {app, BrowserWindow,ipcMain } = require('electron');
   //       console.log(">>>>dtatatata",data);
   //       fs.writeFile('test.txt', data, function(err) {})
 
+
+
   //    })
   //    fsextra.copy(source, destination, function (err) {
 

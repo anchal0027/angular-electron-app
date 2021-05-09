@@ -104,6 +104,10 @@ const {app, BrowserWindow,ipcMain } = require('electron');
       mainWindow.webContents.send('update_downloaded');
      
     });
+    autoUpdater.on("error", err => {
+      log.error("AutoUpdater error");
+      log.error(err);
+    });
     ipcMain.on('restart_app', () => {
       autoUpdater.quitAndInstall();
     });

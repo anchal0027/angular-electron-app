@@ -18,7 +18,7 @@
           <mat-error *ngIf="form.get('email').hasError('required')">We need an email address to log you in</mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="grow">
-          <mat-label>Password</mat-label>
+          <mat-label>Enter Password</mat-label>
           <input matInput [type]="inputType" name="password" formControlName="password" required (keyup.enter)="onEnter($event)" autocomplete="new-password">
           <button type="button" mat-icon-button matSuffix (click)="toggleVisibility()" matTooltip="Toggle Visibility">
             <mat-icon *ngIf="visible">visibility</mat-icon>

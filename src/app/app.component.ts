@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { SidenavService } from './layout/sidenav/sidenav.service';
 import { ThemeService } from '../@fury/services/theme.service';
@@ -12,8 +12,12 @@ import { SplashScreenService } from '../@fury/services/splash-screen.service';
   selector: 'fury-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
-
+export class AppComponent implements OnInit {
+  ipcRenderer = (<any>window).require("electron");
+  version:any;
+  notification:any;
+  message:any;
+  restartButton:any;
   constructor(private sidenavService: SidenavService,
               private iconRegistry: MatIconRegistry,
               private renderer: Renderer2,
@@ -256,5 +260,39 @@ export class AppComponent {
       //   ]
       // }
     ]);
+  }
+  ngOnInit(){
+    console.log("this.ipcRenderer",this.ipcRenderer)
+    this.version = document.getElementById('version');
+    this.notification = document.getElementById('notification');
+    this.message = document.getElementById('message');
+    this.restartButton = document.getElementById('restart-button');
+    
+    this.ipcRenderer.send('app_version');
+    this.ipcRenderer.on('app_version', (event, arg) => {
+      this.ipcRenderer.removeAllListeners('app_version');
+      this.version.innerText = 'Version ' + arg.version;
+    });
+
+    this.ipcRenderer.on('update_available', () => {
+      this.ipcRenderer.removeAllListeners('update_available');
+      this.message.innerText = 'A new update is available. Downloading now...';
+      this.notification.classList.remove('hidden');
+    });
+
+    this.ipcRenderer.on('update_downloaded', () => {
+      this.ipcRenderer.removeAllListeners('update_downloaded');
+      this.message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+      this.restartButton.classList.remove('hidden');
+      this.notification.classList.remove('hidden');
+    });
+
+  }
+  closeNotification() {
+    this.notification.classList.add('hidden');
+  }
+  
+ restartApp() {
+    this.ipcRenderer.send('restart_app');
   }
 }

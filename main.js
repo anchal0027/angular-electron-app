@@ -21,6 +21,7 @@ const {app, BrowserWindow,ipcMain } = require('electron');
   //     fs.readFile('C:\\Users\\bcs\\test.json', (err, data) => {
   //       console.log(">>>>dtatatata",data);
   //       fs.writeFile('test.txt', data, function(err) {})
+
   //    })
   //    fsextra.copy(source, destination, function (err) {
   //     if (err){

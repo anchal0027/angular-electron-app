@@ -4,6 +4,9 @@ const {app, BrowserWindow,ipcMain } = require('electron');
     var fs = require('file-system');
     var fsextra=require("fs-extra")
     const { autoUpdater } = require('electron-updater');
+    const log = require('electron-log');
+    autoUpdater.logger = log;
+       autoUpdater.logger.transports.file.level = 'info';
     let mainWindow
     // var source = 'C:\\Users\\Public'
     // var destination = 'folderB'
@@ -62,6 +65,10 @@ const {app, BrowserWindow,ipcMain } = require('electron');
   
     app.on('ready', () => {
       createWindow();
+      setTimeout(function(){ 
+        autoUpdater.checkForUpdates();
+      }, 3000);
+     
     });
 
     app.on('window-all-closed', function () {
@@ -77,6 +84,17 @@ const {app, BrowserWindow,ipcMain } = require('electron');
       console.log(">>>>app_version main",event)
       event.sender.send('app_version', { version: app.getVersion() });
     });
+            /*checking for updates*/
+        autoUpdater.on("checking-for-update", () => {
+          console.log(">>>>checking for update")
+          //your code
+        });
+
+        /*No updates available*/
+        autoUpdater.on("update-not-available", info => {
+          console.log(">>>>update not availabele")
+          //your code
+        });
     autoUpdater.on('update-available', () => {
       console.log(">>>update availabe")
       mainWindow.webContents.send('update_available');

@@ -27,7 +27,10 @@
       "./index.html",
       "./src/*.js",
       "public/preload.js"
-    ]
+    ],
+    "publish": [
+      "github"
+  ]
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",

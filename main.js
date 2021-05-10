@@ -18,7 +18,6 @@ const {app, BrowserWindow,ipcMain } = require('electron');
       // fs.writeFile('C:\\test.json', JSON.stringify(data) ,function(err) {
       //   console.log(">>>err",err)
       // })
-
   //     fs.readFile('C:\\Users\\bcs\\test.json', (err, data) => {
   //       console.log(">>>>dtatatata",data);
   //       fs.writeFile('test.txt', data, function(err) {})

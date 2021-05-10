@@ -24,6 +24,7 @@ const {app, BrowserWindow,ipcMain } = require('electron');
 
 
 
+
   //    })
   //    fsextra.copy(source, destination, function (err) {
 
@@ -59,13 +60,18 @@ const {app, BrowserWindow,ipcMain } = require('electron');
         mainWindow = null
       });
       mainWindow.once('ready-to-show', () => {
+        console.log(">>Ready")
         mainWindow.show()
+        autoUpdater.checkForUpdatesAndNotify();
       });
       
     }
   
     app.on('ready', () => {
       createWindow();
+      setTimeout(function(){ 
+        autoUpdater.checkForUpdates();
+      }, 3000);
      
     });
 
@@ -78,4 +84,35 @@ const {app, BrowserWindow,ipcMain } = require('electron');
         app.quit();
       }
     });
-  
+    ipcMain.on('app_version', (event) => {
+      console.log(">>>>app_version main",event)
+      event.sender.send('app_version', { version: app.getVersion() });
+    });
+            /*checking for updates*/
+        autoUpdater.on("checking-for-update", () => {
+          console.log(">>>>checking for update")
+          //your code
+        });
+
+        /*No updates available*/
+        autoUpdater.on("update-not-available", info => {
+          console.log(">>>>update not availabele")
+          //your code
+        });
+    autoUpdater.on('update-available', () => {
+      console.log(">>>update availabe")
+      mainWindow.webContents.send('update_available');
+    });
+    autoUpdater.on('update-downloaded', () => {
+      console.log(">>>update downloades")
+      mainWindow.webContents.send('update_downloaded');
+     
+    });
+    autoUpdater.on("error", err => {
+      log.error("AutoUpdater error");
+      log.error(err);
+    });
+    ipcMain.on('restart_app', () => {
+      autoUpdater.quitAndInstall();
+    });
+    

@@ -35,8 +35,6 @@
     "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod  --base-href ./ && electron-builder --publish never",
-    "deploy": "ng build --prod  --base-href ./ && electron-builder --publish always",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

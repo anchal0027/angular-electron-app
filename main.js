@@ -83,6 +83,7 @@ const {app, BrowserWindow,ipcMain } = require('electron');
       if (process.platform !== 'darwin') {
         app.quit();
       }
+      
     });
     ipcMain.on('app_version', (event) => {
       console.log(">>>>app_version main",event)
